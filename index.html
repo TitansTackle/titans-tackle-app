@@ -89,6 +89,7 @@ body{background:#eef5fc}.top{background:#072448}.top .wrap{padding-top:9px;paddi
 .dashboard-head,.home-section-title{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:0 0 16px}.dashboard-head h2,.home-section-title h2{font-size:1.75rem;margin:5px 0;color:#0c355f}.dashboard-head p{margin:0;color:#60768d}.home-overline{color:#0f75bd}.home-map-link{background:#e3f0ff;color:#14528c;white-space:nowrap}.home-dash{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-bottom:33px}.dash-weather,.dash-map{border-radius:21px;min-height:230px;overflow:hidden}.dash-weather{padding:22px;background:linear-gradient(135deg,#103e73,#1278ba);color:white;box-shadow:0 8px 18px #125f9930}.dash-weather-title,.dash-weather-top,.weather-strip{display:flex;justify-content:space-between;gap:12px;align-items:center}.dash-weather-title{font-size:.75rem;font-weight:850;letter-spacing:1px;color:#bfe2ff}.live-dot{color:#b2f5de;font-size:.66rem}.dash-weather-top{margin:20px 0}.dash-weather-top strong{font-size:1.25rem}.dash-weather-top small{display:block;color:#cbeaff;margin-top:4px}.dash-temp{font-weight:900;font-size:3.5rem;line-height:1}.dash-temp small{display:inline;font-size:1.2rem}.weather-strip{padding:10px 0;border-top:1px solid #ffffff36;flex-wrap:wrap;font-size:.87rem}.weather-cta{border:0;background:transparent;color:#ffe19e;font-weight:900;width:100%;display:flex;justify-content:space-between;padding:13px 0 0;text-align:left}.dash-map{border:0;position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;padding:24px;color:white;background:linear-gradient(130deg,#0c788d,#129eb4 65%,#1bc8c5);box-shadow:0 8px 18px #159caa27}.dash-map::after{content:'◎';position:absolute;right:-11px;bottom:-87px;font-size:250px;color:#ffffff20;line-height:1}.dash-icon{font-size:1.85rem}.dash-label{font-size:.74rem;letter-spacing:1.5px;font-weight:850;color:#cff9ff}.dash-map strong{font-size:1.45rem;line-height:1.22}.dash-map-cta{color:#fff0ae;font-weight:850;margin-top:auto}.home-section{margin-bottom:32px}.home-section-title button{background:transparent;color:#0863a9;padding:7px}.product-shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.shelf-card{padding:0;border:1px solid #d5e4f5;border-radius:17px;overflow:hidden;text-align:left;background:#fff;box-shadow:0 4px 18px #1437590c;color:inherit}.shelf-img{height:180px;background:linear-gradient(140deg,#f6fbff,#daeaff);display:grid;place-items:center}.shelf-img img{height:100%;width:100%;object-fit:contain;padding:9px}.shelf-info{display:flex;flex-direction:column;gap:7px;padding:14px}.shelf-info span{font-size:.61rem;letter-spacing:1.3px;font-weight:900;color:#0f84bd}.shelf-info strong{font-size:1rem;line-height:1.3}.shelf-info small{color:#1165a6;font-weight:750}.catalog-note{font-size:.78rem;color:#688096;margin:11px 0}.action-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.action-row button{display:grid;grid-template-columns:45px 1fr 20px;grid-template-rows:auto auto;text-align:left;gap:3px 12px;border:1px solid #dce7f5;border-radius:17px;padding:19px;background:#fff;color:#0e375b}.action-row button>span{grid-row:1/3;font-size:1.7rem}.action-row strong{font-size:1rem}.action-row small{color:#62798f}.action-row i{grid-column:3;grid-row:1/3;font-style:normal;font-weight:900;color:#0d7cc8;align-self:center}.story-band{display:flex;justify-content:space-between;gap:25px;align-items:center;padding:30px;border-radius:23px;color:white;background:linear-gradient(105deg,#081f3e,#114c83 62%,#0b6798);margin:35px 0}.story-band .home-overline{color:#ffc26c}.story-band h2{font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.2;margin:8px 0}.story-band p{color:#c7e1fa}.story-band button{background:#ffa72f;color:#113354}.story-band img{width:140px;max-height:140px;object-fit:contain;background:#fff;padding:8px;border-radius:22px}
 @media(max-width:760px){.new-hero-content{padding:50px 24px 35px}.new-hero-logo{width:76px;height:76px;top:16px;right:15px}.new-hero h1{max-width:440px}.home-dash{grid-template-columns:1fr}.product-shelf{grid-template-columns:repeat(2,minmax(0,1fr))}.action-row{grid-template-columns:1fr}.dashboard-head,.home-section-title{align-items:start}.home-map-link{white-space:normal}.story-band img{width:90px}}
 @media(max-width:470px){.new-hero{min-height:440px}.new-hero h1{font-size:2.15rem;margin-top:48px}.new-hero p{font-size:.95rem}.hero-cta button{width:100%}.dashboard-head{flex-direction:column}.home-section-title h2{font-size:1.5rem}.shelf-img{height:140px}.story-band{padding:22px}.story-band img{display:none}}
+.fish-photo{display:block;max-width:100%;width:100%;max-height:290px;object-fit:cover;border-radius:12px;margin:10px 0;border:1px solid #d4e2f6}
 </style>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><meta name="description" content="Titans Tackle fishing maps, weather, tackle catalog, and fishing log for Minnesota anglers."></head>
 <body>
@@ -206,7 +207,7 @@ function home(){
   <button class="home-map-link" data-go="maps">🗺️ View all Minnesota lakes <span>↗</span></button>
 </section>
 <section class="home-dash">
-  <div class="dash-weather"><div class="dash-weather-title"><span>⛅ FISHING WEATHER</span><span class="live-dot">${weatherData?'● LIVE':'● ONLINE FORECAST'}</span></div><div class="dash-weather-top"><div><strong>${esc(selectedWeather)}</strong><small>Minnesota · Current conditions</small></div><div class="dash-temp">${temp==null?'--':Math.round(temp)+'°'}<small>F</small></div></div><div class="weather-strip"><span>${condition?esc(condition[0]+' '+condition[1]):weatherLoading?'Updating forecast…':'Forecast available online'}</span><span>💨 Wind ${wind==null?'--':Math.round(wind)+' mph'}</span></div><button data-go="weather" class="weather-cta">See 5-day forecast <span>→</span></button></div>
+  <div class="dash-weather"><div class="dash-weather-title"><span>⛅ TITANS TACKLE WEATHER REPORT</span><span class="live-dot">${weatherData?'● LIVE':'● ONLINE FORECAST'}</span></div><div class="dash-weather-top"><div><strong>${esc(selectedWeather)}</strong><small>Minnesota · Current conditions</small></div><div class="dash-temp">${temp==null?'--':Math.round(temp)+'°'}<small>F</small></div></div><div class="weather-strip"><span>${condition?esc(condition[0]+' '+condition[1]):weatherLoading?'Updating forecast…':'Forecast available online'}</span><span>💨 Wind ${wind==null?'--':Math.round(wind)+' mph'}</span></div><button data-go="weather" class="weather-cta">See 5-day forecast <span>→</span></button></div>
   <button class="dash-map" data-go="maps"><span class="dash-icon">🧭</span><span class="dash-label">EXPLORE MINNESOTA</span><strong>One state.<br>Thousands of places to fish.</strong><span class="dash-map-cta">Lake maps & access →</span></button>
 </section>
 <section class="home-section"><div class="home-section-title"><div><span class="home-overline">FROM OUR TACKLE BENCH</span><h2>Featured tackle</h2></div><button data-go="shop">Browse all products →</button></div><div class="product-shelf">${featured.map(p=>`<button class="shelf-card" data-go="shop"><div class="shelf-img">${p.image?`<img loading="lazy" src="${esc(p.image)}" alt="${esc(p.cat||p.name)}" onerror="this.style.display='none'">`:'🎣'}</div><div class="shelf-info"><span> TITANS TACKLE </span><strong>${esc(p.cat||p.name)}</strong><small>View product options ↗</small></div></button>`).join('')}</div><p class="catalog-note">Product information comes from your imported GoDaddy catalog. Purchases are completed on your official website; this prototype does not accept payments.</p></section>
@@ -239,6 +240,22 @@ function spinner(){return `
   <div class="card"><h2>Saved ideas</h2><div id="ideas">${state.ideas.length?state.ideas.map((x,i)=>`<div class="rowitem"><strong>Design ${i+1}</strong><div>${esc(x.blade)} blade • ${esc(x.beads)} beads • ${esc(x.hook)} • Qty ${x.qty}</div></div>`).join(''):'<p class="empty">No designs saved yet.</p>'}</div><p class="muted">Custom order pricing and component availability are not yet connected.</p></div>
 </div>`}
 
+function persistCatches(){
+  try{localStorage.setItem(STORE,JSON.stringify(state));return true}
+  catch(err){alert("Your device's browser storage is full. The photo was not saved. Try a smaller image or remove an older catch photo.");return false}
+}
+async function compressCatchPhoto(file){
+  if(!file.type.startsWith('image/')||file.size>12*1024*1024)throw new Error('Invalid photo');
+  const blob=URL.createObjectURL(file);
+  try{
+    const img=new Image();img.src=blob;
+    await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject});
+    const ratio=Math.min(1,1000/Math.max(img.naturalWidth,img.naturalHeight));
+    const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(img.naturalHeight*ratio));
+    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+    return canvas.toDataURL('image/jpeg',.70);
+  }finally{URL.revokeObjectURL(blob)}
+}
 function fishing(){return `
 <div class="section"><h2>My Fishing Logbook</h2><p class="muted">Keep a personal record of your catches. Location is optional; avoid recording sensitive spots on shared devices.</p></div>
 <div class="two">
@@ -249,9 +266,12 @@ function fishing(){return `
     <label>Lure or rig<input name="lure" maxlength="100" placeholder="e.g. Orange spinner"></label>
     <label>General location (optional)<input name="location" maxlength="100" placeholder="e.g. Rainy Lake"></label>
     <label>Notes<textarea name="notes" maxlength="500" placeholder="Conditions, memories, etc."></textarea></label>
-    <button class="btn">Save catch</button>
+    <label>📷 Add Fish Photo (optional)<input type="file" id="catch-photo" name="photo" accept="image/*"></label>
+    <div id="catch-photo-preview" class="muted small" aria-live="polite">Choose a photo from your phone or computer.</div>
+    <p class="muted small">Photos stay private in this browser, not on a public gallery. Large photos are resized before saving.</p>
+    <button class="btn" type="submit">Save catch &amp; photo</button>
   </form>
-  <div class="card"><h3>My catches <span class="pill">${state.catches.length}</span></h3>${state.catches.length?state.catches.slice().reverse().map(c=>`<div class="rowitem"><div class="flex between"><strong>🐟 ${esc(c.species)}</strong><span class="muted">${esc(c.date)}</span></div><div class="small">${c.length?esc(c.length)+' in · ':''}${esc(c.location||'Location private')}</div><div class="small">${esc(c.lure||'No lure recorded')}</div>${c.notes?`<p>${esc(c.notes)}</p>`:''}<button class="btn light" data-deletecatch="${c.id}">Delete</button></div>`).join(''):'<p class="empty">No catches yet. Record your first fish!</p>'}</div>
+  <div class="card"><h3>My catches <span class="pill">${state.catches.length}</span></h3>${state.catches.length?state.catches.slice().reverse().map(c=>`<div class="rowitem"><div class="flex between"><strong>🐟 ${esc(c.species)}</strong><span class="muted">${esc(c.date)}</span></div><div class="small">${c.length?esc(c.length)+' in · ':''}${esc(c.location||'Location private')}</div><div class="small">${esc(c.lure||'No lure recorded')}</div>${c.photo?`<img class="fish-photo" src="${c.photo}" alt="Photo of logged ${esc(c.species)} catch" loading="lazy">`:``}${c.notes?`<p>${esc(c.notes)}</p>`:''}<label class="small" style="margin-top:9px">${c.photo?"Replace":"Add"} photo<input type="file" accept="image/*" data-catch-photo="${esc(c.id)}" aria-label="Add or replace catch photo"></label><button class="btn light" data-deletecatch="${esc(c.id)}">Delete</button></div>`).join(''):'<p class="empty">No catches yet. Record your first fish!</p>'}</div>
 </div>`}
 
 function maps(){return `
@@ -268,13 +288,13 @@ function maps(){return `
 function weather(){
  const days=weatherData?.daily;
  const weatherForecast=days?days.time.map((day,i)=>`<div class="day-forecast"><div><strong>${new Date(day+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}</strong><small>${weatherKind(days.weather_code[i])[1]}</small></div><span class="forecast-emoji">${weatherKind(days.weather_code[i])[0]}</span><span>${Math.round(days.temperature_2m_max[i])}° / ${Math.round(days.temperature_2m_min[i])}°</span><span class="rain-chance">☔ ${days.precipitation_probability_max[i]??'–'}%</span></div>`).join(''):'';
- return `<div class="section-heading"><div><div class="eyebrow blue">PLAN YOUR NEXT CAST</div><h2>⛅ Minnesota Fishing Weather</h2><p class="muted">Live forecasts for popular fishing areas. Refreshes approximately every 15 minutes when open.</p></div></div>
+ return `<div class="section-heading"><div><div class="eyebrow blue">PLAN YOUR NEXT CAST</div><h2>⛅ Titans Tackle Weather Report</h2><p class="muted">Live forecasts for popular fishing areas. Refreshes approximately every 15 minutes when open.</p></div></div>
  <div class="weather-layout"><section class="weather-panel"><div class="flex between"><div><div class="eyebrow">CURRENT CONDITIONS</div><h3>${esc(selectedWeather)}</h3></div><div style="min-width:180px"><label for="weather-location">Change location</label><select id="weather-location">${Object.keys(weatherLocations).map(name=>`<option value="${esc(name)}" ${name===selectedWeather?'selected':''}>${esc(name)}</option>`).join('')}</select></div></div>
  ${weatherSummary()}
  <div class="flex"><button class="btn" id="weather-refresh">↻ Refresh Weather</button><a class="btn ghost" href="https://www.weather.gov/" target="_blank" rel="noopener">Official NWS alerts ↗</a></div>
  <p class="weather-disclaimer">Weather provided by Open-Meteo. Approximate conditions for the selected coordinates, not real-time on-water measurements. Check National Weather Service warnings before boating. ${weatherData?'Forecast retrieved '+new Date(weatherUpdated).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}):''}</p></section>
  <section class="card"><h3>Next 5 Days</h3>${weatherForecast||`<p class="empty">${weatherLoading?'Fetching forecast…':weatherError||'Weather forecast will appear here when online.'}</p>`}</section></div>
- <div class="card" style="margin-top:16px"><h3>Fishing Weather Tips</h3><p>Watch wind speed and direction, approaching storms, temperature changes, and sunrise/sunset before heading out. Never rely on the app alone for boating safety.</p></div>`
+ <div class="card" style="margin-top:16px"><h3>Titans Tackle Weather Report Tips</h3><p>Watch wind speed and direction, approaching storms, temperature changes, and sunrise/sunset before heading out. Never rely on the app alone for boating safety.</p></div>`
 }
 
 function learn(){return `
@@ -297,7 +317,29 @@ function bind(){
   if($('weather-location'))$('weather-location').onchange=e=>{selectedWeather=e.target.value;weatherData=null;weatherUpdated=0;render();loadWeather(true)};
   if($('weather-refresh'))$('weather-refresh').onclick=()=>{weatherUpdated=0;loadWeather(true);render()};
   if($('spinner-form')) $('spinner-form').onsubmit=e=>{e.preventDefault();let d=new FormData(e.target),qty=Number(d.get('qty'));if(!Number.isInteger(qty)||qty<1||qty>1000)return;state.ideas.push({blade:d.get('blade'),beads:d.get('beads'),hook:d.get('hook'),qty});save();render()};
-  if($('catch-form')) $('catch-form').onsubmit=e=>{e.preventDefault();let d=new FormData(e.target);state.catches.push({id:String(Date.now())+Math.random().toString(16).slice(2),date:d.get('date'),species:d.get('species'),length:d.get('length'),lure:d.get('lure'),location:d.get('location'),notes:d.get('notes')});save();render()};
+  if($('catch-photo')) $('catch-photo').onchange=async e=>{
+    const f=e.target.files?.[0], el=$('catch-photo-preview');
+    if(!f){el.textContent='Choose a photo from your phone or computer.';return;}
+    if(!f.type.startsWith('image/')||f.size>12*1024*1024){el.textContent='Please choose an image under 12 MB.';e.target.value='';return;}
+    try{const data=await compressCatchPhoto(f);el.innerHTML=`<img class="fish-photo" src="${data}" alt="Selected catch photo preview"><span class="muted small">Photo ready to save</span>`}catch(err){el.textContent='This photo could not be loaded. Try a JPG or PNG.';e.target.value='';}
+  };
+  if($('catch-form')) $('catch-form').onsubmit=async e=>{
+    e.preventDefault();const form=e.target, submit=form.querySelector('[type="submit"]');submit.disabled=true;
+    try{
+      const d=new FormData(form), f=d.get('photo');
+      const photo=f instanceof File&&f.size?await compressCatchPhoto(f):null;
+      const entry={id:String(Date.now())+Math.random().toString(16).slice(2),date:d.get('date'),species:d.get('species'),length:d.get('length'),lure:d.get('lure'),location:d.get('location'),notes:d.get('notes'),photo};
+      state.catches.push(entry);
+      if(!persistCatches()){state.catches.pop();return;}
+      render();
+    }catch(err){alert('Could not save that photo. Try a smaller JPG or PNG image.');}
+    finally{submit.disabled=false;}
+  };
+  document.querySelectorAll('[data-catch-photo]').forEach(input=>input.onchange=async e=>{
+    const c=state.catches.find(c=>c.id===input.dataset.catchPhoto);if(!c||!input.files?.[0])return;
+    try{const previous=c.photo;c.photo=await compressCatchPhoto(input.files[0]);if(!persistCatches()){c.photo=previous;return;}render()}
+    catch(err){alert('Photo could not be saved. Try a JPG or PNG image.');}
+  });
   document.querySelectorAll('[data-deletecatch]').forEach(b=>b.onclick=()=>{if(confirm('Delete this catch?')){state.catches=state.catches.filter(c=>c.id!==b.dataset.deletecatch);save();render()}});
   if($('reset')) $('reset').onclick=()=>{if(confirm('Permanently clear all prototype test data from this browser?')){localStorage.removeItem(STORE);state={cart:[],catches:[],adjustments:{},orders:[],ideas:[],importedProducts:[]};products=demoProducts.map(p=>({...p}));btnTab('home')}}
 }
