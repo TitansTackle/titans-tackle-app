@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b4ea2">
-<title>Titans Tackle — Adventure v0.7</title>
+<title>Titans Tackle Fishing App — v1.4</title>
 <style>
 :root{
   --bg:#eef5ff;
@@ -90,8 +90,18 @@ body{background:#eef5fc}.top{background:#072448}.top .wrap{padding-top:9px;paddi
 @media(max-width:760px){.new-hero-content{padding:50px 24px 35px}.new-hero-logo{width:76px;height:76px;top:16px;right:15px}.new-hero h1{max-width:440px}.home-dash{grid-template-columns:1fr}.product-shelf{grid-template-columns:repeat(2,minmax(0,1fr))}.action-row{grid-template-columns:1fr}.dashboard-head,.home-section-title{align-items:start}.home-map-link{white-space:normal}.story-band img{width:90px}}
 @media(max-width:470px){.new-hero{min-height:440px}.new-hero h1{font-size:2.15rem;margin-top:48px}.new-hero p{font-size:.95rem}.hero-cta button{width:100%}.dashboard-head{flex-direction:column}.home-section-title h2{font-size:1.5rem}.shelf-img{height:140px}.story-band{padding:22px}.story-band img{display:none}}
 .fish-photo{display:block;max-width:100%;width:100%;max-height:290px;object-fit:cover;border-radius:12px;margin:10px 0;border:1px solid #d4e2f6}
+
+#mn-map{height:490px;border-radius:15px;border:1px solid #b3d2ec;background:#dbeaf7;z-index:0}
+.map-controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:12px 0}
+.map-controls label{flex:1;min-width:220px}
+.map-controls select,.map-controls input{margin:5px 0 0}
+.map-pin-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.map-pin-list button{border-radius:9px;padding:8px;background:#e4f2ff;border:1px solid #b8d9f3;color:#164777}
+.map-hint{font-size:.88rem;color:#496883;margin:9px 0}
+@media(max-width:600px){#mn-map{height:390px}}
 </style>
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><meta name="description" content="Titans Tackle fishing maps, weather, tackle catalog, and fishing log for Minnesota anglers."></head>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><meta name="description" content="Titans Tackle fishing maps, weather, tackle catalog, and fishing log for Minnesota anglers."><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoN2ir6d6vct3g=" crossorigin="">
+</head>
 <body>
 <header class="top">
   <div class="wrap">
@@ -116,7 +126,7 @@ body{background:#eef5fc}.top{background:#072448}.top .wrap{padding-top:9px;paddi
     <button data-tab="learn">📚 Learn & History</button>
   </nav>
   <div id="view"></div>
-  <footer>Made for Titans Tackle · International Falls, Minnesota · Adventure version 0.7<br>Catch logs and spinner ideas stay on this device, not online accounts. Weather and photos require internet. Shop purchases happen on the official website.</footer>
+  <footer>Made for Titans Tackle · International Falls, Minnesota · Version 1.4<br>Catch logs and spinner ideas stay on this device, not online accounts. Weather and photos require internet. Shop purchases happen on the official website.</footer>
 </main>
 <script>
 'use strict';
@@ -275,16 +285,82 @@ function fishing(){return `
 </div>`}
 
 function maps(){return `
-<div class="hero"><h1>🗺️ Minnesota Fishing Maps</h1><p>Explore fishing lakes and rivers across all of Minnesota, with Rainy Lake, Rainy River and Lake of the Woods as featured home waters.</p></div>
-<div class="grid">
-  <div class="card"><div class="itemicon">🌎</div><span class="pill">Statewide · Available now</span><h3>Minnesota DNR LakeFinder</h3><p>Search Minnesota lakes and rivers by name or county. Explore lake depth maps, fishing surveys, access points, regulations and stocking reports where available.</p><a class="btn alt" style="display:inline-block;text-decoration:none" href="https://www.dnr.state.mn.us/lakefind/index.html" target="_blank" rel="noopener noreferrer">Explore Minnesota Lakes ↗</a><p class="muted small">Official DNR website; requires internet.</p></div>
-  <div class="card"><div class="itemicon">🧭</div><span class="pill">Featured waters · Available now</span><h3>Lake of the Woods &amp; Rainy River</h3><p>Explore the interactive Navionics chart viewer hosted by Lake of the Woods Tourism.</p><a class="btn alt" style="display:inline-block;text-decoration:none" href="https://lakeofthewoodsmn.com/map.html" target="_blank" rel="noopener noreferrer">Open Interactive Lake Map ↗</a><p class="muted small">Provided by Lake of the Woods Tourism. Opens outside this app.</p></div>
-  <div class="card"><div class="itemicon">🏞️</div><span class="pill">Featured region</span><h3>Northern Minnesota</h3><p>Rainy Lake, Rainy River, Lake of the Woods, Kabetogama, Namakan and nearby waters. Use the DNR LakeFinder to look up available lake information statewide.</p><a class="btn alt" style="display:inline-block;text-decoration:none" href="https://www.dnr.state.mn.us/lakefind/index.html" target="_blank" rel="noopener noreferrer">Find a Lake ↗</a></div>
-  <div class="card"><div class="itemicon">📍</div><span class="pill">Planned</span><h3>My Private Fishing Spots</h3><p>A future secure account feature to save map pins, catch locations, and lure choices. No locations are currently uploaded or shared.</p></div>
-  <div class="card"><div class="itemicon">🚤</div><span class="pill">Statewide resource</span><h3>Water Access &amp; Surveys</h3><p>Find public access information and fish survey data using the DNR's official LakeFinder resource.</p><a class="btn alt" style="display:inline-block;text-decoration:none" href="https://www.dnr.state.mn.us/lakefind/index.html" target="_blank" rel="noopener noreferrer">View DNR Information ↗</a></div>
-  <div class="card"><div class="itemicon">🗺️</div><span class="pill">Future release</span><h3>Integrated Minnesota Map</h3><p>Later we can add a licensed interactive map inside the app with lake search and catch-log links; that is not included in this version.</p></div>
+<div class="hero"><h1>🗺️ Minnesota Fishing Maps</h1><p>Explore featured fishing waters statewide and open detailed maps. Saved locations are approximate lake centers.</p></div>
+<div class="card section">
+  <div class="flex between"><div><h2>Explore Minnesota</h2><p class="muted">Choose a featured fishing area below. The in-app overview works offline; open the detailed map in a new tab when online.</p></div><span class="pill">Map preview</span></div>
+  <div class="map-controls"><label>Find a featured fishing area<select id="map-lake"><option value="state">All Minnesota</option><option value="rainy">Rainy Lake</option><option value="river">Rainy River</option><option value="woods">Lake of the Woods</option><option value="kabetogama">Lake Kabetogama</option><option value="mille">Mille Lacs Lake</option><option value="leech">Leech Lake</option><option value="vermilion">Lake Vermilion</option><option value="winnie">Lake Winnibigoshish</option><option value="superior">Lake Superior — Duluth</option></select></label><button class="btn alt" id="map-my-spot" type="button">📍 Save Selected Lake Area</button></div>
+  <div id="mn-map" role="region" aria-label="Schematic map of Minnesota fishing areas">
+    <svg viewBox="0 0 640 430" width="100%" height="100%" role="img" aria-label="Illustrated overview of Minnesota fishing areas, not a navigation chart" preserveAspectRatio="xMidYMid meet">
+      <defs><linearGradient id="lake-bg" x2="1" y2="1"><stop stop-color="#ccecff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient></defs>
+      <rect width="640" height="430" fill="url(#lake-bg)"/>
+      <g opacity=".3" fill="none" stroke="#91b7d5" stroke-width="1"><path d="M0 85H640 M0 170H640 M0 255H640 M0 340H640 M110 0V430 M220 0V430 M330 0V430 M440 0V430 M550 0V430"/></g>
+      <path d="M203 28 L449 37 477 70 446 108 480 147 461 190 476 214 461 250 439 300 445 357 417 397 259 392 248 333 219 295 229 251 203 213 210 164 187 119Z" fill="#b0d59f" stroke="#507d58" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M282 67Q323 48 367 70 T449 69" fill="none" stroke="#2687c8" stroke-width="11" stroke-linecap="round"/>
+      <path d="M291 136Q320 147 351 137 T398 150" fill="none" stroke="#2687c8" stroke-width="7" stroke-linecap="round"/>
+      <path d="M337 246q45 -19 74 10t-13 39q-50 17 -61 -49Z" fill="#64b7ed" stroke="#2687c8" stroke-width="3"/>
+      <text x="326" y="214" text-anchor="middle" font-size="21" font-weight="800" fill="#245443">MINNESOTA</text>
+      <g id="map-overview-marker"><circle cx="326" cy="190" r="18" fill="#ff8e25" stroke="white" stroke-width="5"/><circle cx="326" cy="190" r="6" fill="white"/></g>
+      <rect x="14" y="12" width="210" height="44" rx="13" fill="#fff" opacity=".95"/>
+      <text x="28" y="30" font-size="14" font-weight="800" fill="#153b61">Minnesota fishing areas</text><text x="28" y="45" font-size="10" fill="#4b6c85">Illustrated overview, not to scale</text>
+      <rect x="15" y="369" width="610" height="42" rx="12" fill="white" opacity=".96"/>
+      <text id="map-overview-label" x="30" y="395" font-size="16" font-weight="750" fill="#124b86">Select a fishing area above</text>
+    </svg>
+  </div><p style="margin:10px 0"><a id="map-full-link" class="btn alt" target="_blank" rel="noopener noreferrer" href="https://www.openstreetmap.org">🗺️ Open detailed interactive map ↗</a></p>
+  <div id="map-status" class="map-hint">Select a lake above, then choose “Open full map” for a detailed interactive view.</div>
+  <div class="map-pin-list" id="map-pin-list"></div>
+  <p class="muted small">Saved areas use approximate lake centers, not precise GPS locations. They stay in this browser and are not backed up.</p>
 </div>
-<p class="warning" style="margin-top:16px">Map links open third-party sites. Do not use this prototype for navigation. Verify charts, hazards, conditions and fishing regulations before heading out. Reuse of DNR map data in our own commercial app requires reviewing its license.</p>`}
+<div class="grid">
+  <div class="card"><div class="itemicon">🏞️</div><h3>Minnesota DNR LakeFinder</h3><p>Official lake depth maps, fish surveys and other available lake information.</p><a class="btn alt" href="https://www.dnr.state.mn.us/lakefind/index.html" target="_blank" rel="noopener noreferrer">Open LakeFinder ↗</a></div>
+  <div class="card"><div class="itemicon">🚤</div><h3>Public water accesses</h3><p>Check official Minnesota DNR resources before planning a launch.</p><a class="btn alt" href="https://www.dnr.state.mn.us/water_access/index.html" target="_blank" rel="noopener noreferrer">DNR Accesses ↗</a></div>
+  <div class="card"><div class="itemicon">🧭</div><h3>Lake of the Woods Charts</h3><p>Open the separate chart viewer you found earlier. Charts are not copied into our app.</p><a class="btn alt" href="https://lakeofthewoodsmn.com/map.html" target="_blank" rel="noopener noreferrer">Open Chart Viewer ↗</a></div>
+</div>
+<p class="warning" style="margin-top:16px">This illustrated overview is not a nautical chart or a geographically precise map: no verified water depths, hazards or safe navigation routes. Do not use it to navigate on the water. Check official charts, weather and current regulations.</p>`}
+const mapPlaces={state:[46.35,-94.5,6],rainy:[48.60,-93.12,10],river:[48.57,-93.45,10],woods:[48.95,-94.70,9],kabetogama:[48.45,-93.05,11],mille:[46.25,-93.64,10],leech:[47.15,-94.45,10],vermilion:[47.91,-92.37,10],winnie:[47.43,-94.00,10],superior:[46.79,-92.09,10]};
+let fishingMap=null,mapPinLayer=null,mapReady=false;
+const MAP_PINS_KEY='tt_mn_private_map_pins_01';
+function mapPins(){try{const a=JSON.parse(localStorage.getItem(MAP_PINS_KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
+function saveMapPins(pins){try{localStorage.setItem(MAP_PINS_KEY,JSON.stringify(pins));return true}catch(e){alert('The browser could not save this spot.');return false}}
+function mapEmbedURL(lat,lng,zoom){
+ const delta=zoom>=12?.045:zoom>=10?.24:zoom>=9?.48:3.5;
+ const bbox=[lng-delta,lat-delta*.65,lng+delta,lat+delta*.65].map(x=>x.toFixed(5)).join('%2C');
+ return 'https://www.openstreetmap.org/export/embed.html?bbox='+bbox+'&layer=mapnik&marker='+lat.toFixed(5)+'%2C'+lng.toFixed(5);
+}
+function mapPageURL(lat,lng,zoom){return 'https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lng+'#map='+zoom+'/'+lat+'/'+lng}
+let selectedMapPosition=mapPlaces.state;
+function showMapLocation(pos){
+ selectedMapPosition=pos;
+ const link=$('map-full-link');if(link)link.href=mapPageURL(pos[0],pos[1],pos[2]);
+ const marker=$('map-overview-marker');const label=$('map-overview-label');
+ const select=$('map-lake');const name=select && select.value!=='state'?select.options[select.selectedIndex].text:'Minnesota statewide';
+ if(label)label.textContent='Selected: '+name+' — open full map for detail';
+ if(marker){
+   const x=Math.max(200,Math.min(460,320+(pos[1]+94.5)*65));
+   const y=Math.max(49,Math.min(376,300-(pos[0]-46)*67));
+   marker.setAttribute('transform','translate('+(x-326)+','+(y-190)+')');
+ }
+}
+
+function renderMapPins(){
+ const pins=mapPins();const list=$('map-pin-list');if(!list)return;
+ list.innerHTML=pins.length?pins.map((p,i)=>'<button type="button" data-pin="'+i+'">📍 '+esc(p.name)+' · View area</button><button type="button" data-pin-delete="'+i+'" aria-label="Delete '+esc(p.name)+'">✕</button>').join(''):'<span class="muted">No personal spots saved yet.</span>';
+ list.querySelectorAll('[data-pin]').forEach(b=>b.onclick=()=>{const p=pins[Number(b.dataset.pin)];showMapLocation([p.lat,p.lng,12]);$('map-status').textContent='Showing saved approximate fishing area: '+p.name});
+ list.querySelectorAll('[data-pin-delete]').forEach(b=>b.onclick=()=>{if(confirm('Delete this personal fishing area?')){pins.splice(Number(b.dataset.pin),1);saveMapPins(pins);renderMapPins()}})
+}
+function loadMapLibrary(){
+ if(active!=='maps'||!$('mn-map'))return;
+ showMapLocation(mapPlaces.state);
+ $('map-status').textContent='Select a lake to highlight its approximate location, then open the full detailed map in a new tab.';
+ $('map-lake').onchange=e=>{const p=mapPlaces[e.target.value]||mapPlaces.state;showMapLocation(p)};
+ $('map-my-spot').onclick=()=>{
+ const choice=$('map-lake');if(choice.value==='state'){alert('First select a lake or fishing area to save its approximate location.');return}
+ const name=prompt('Name this fishing area (approximate lake center only):',choice.options[choice.selectedIndex].text);
+ if(!name||!name.trim())return;
+ const p=mapPlaces[choice.value];const pins=mapPins();pins.push({name:name.trim().slice(0,60),lat:p[0],lng:p[1]});
+ if(saveMapPins(pins)){$('map-status').textContent='Saved approximate lake area in this browser, not a precise GPS fishing spot.';renderMapPins()}
+ };
+ renderMapPins();
+}
 function weather(){
  const days=weatherData?.daily;
  const weatherForecast=days?days.time.map((day,i)=>`<div class="day-forecast"><div><strong>${new Date(day+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}</strong><small>${weatherKind(days.weather_code[i])[1]}</small></div><span class="forecast-emoji">${weatherKind(days.weather_code[i])[0]}</span><span>${Math.round(days.temperature_2m_max[i])}° / ${Math.round(days.temperature_2m_min[i])}°</span><span class="rain-chance">☔ ${days.precipitation_probability_max[i]??'–'}%</span></div>`).join(''):'';
@@ -311,6 +387,7 @@ function render(){
   let html={home,shop,spinner,fishing,maps,weather,learn}[active]();
   $('view').innerHTML=html;
   bind();
+  if(active==='maps')loadMapLibrary();
 }
 function bind(){
   document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>btnTab(b.dataset.go));
